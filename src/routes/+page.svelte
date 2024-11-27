@@ -13,16 +13,23 @@
 
 	// let { data }: Props = $props();
 	// /src/lib/data/missed.csv'
-	let data: Data[] | undefined = $state([]);
+	// let data: Data[] | undefined = $state([]);
+	let data: any;
+
+	// function loadCSV(result: Data[]): void {
+	// 	data = result;
+	// }
 
 	onMount(async () => {
-		data = await csv('/src/lib/data/missed.csv', (row) => ({
-			location: row.location,
-			type: row.type,
-			value: +row.value
-		}));
+		data = await csv('/src/lib/data/missed.csv').then((d) => {
+			return d.map((row) => ({
+				location: row.location,
+				type: row.type,
+				value: +row.value
+			}));
+		});
 	});
-
+	$: console.log(data);
 	// async function fetchCSV(url: string): Promise<Data[] | undefined> {
 	// 	try {
 	// 		const response = await fetch(url);
@@ -46,11 +53,10 @@
 	// 	);
 	// });
 
-	// let data_ = loadData().then((data) => data);
-
 	// let missed: Data[] = data.missed.map((d) => ({ ...d, value: +d.value }));
-	// let missed = $derived(() => data.map((d) => ({ ...d, value: +d.value })));
-	$inspect(data).with(console.trace);
+
+	// $inspect(data); //.with(console.trace);
+
 	// console.log('missed: ', missed);
 </script>
 
