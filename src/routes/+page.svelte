@@ -10,7 +10,7 @@
 	let isLoading = true;
 
 	onMount(async () => {
-		data = await csv('/src/lib/data/missed.csv').then((d) => {
+		data = await csv('/data/missed.csv').then((d) => {
 			return d.map((row) => ({
 				location: row.location,
 				type: row.type,
