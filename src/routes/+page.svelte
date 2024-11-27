@@ -3,72 +3,32 @@
 	import { colors, categories } from '$lib/assets/utils/constants';
 	import { csv } from 'd3-fetch';
 
-	import type { PageData } from './$types';
 	import type { Data } from '$lib/types';
 	import { onMount } from 'svelte';
 
-	// interface Props {
-	// 	data: PageData;
-	// }
-
-	// let { data }: Props = $props();
-	// /src/lib/data/missed.csv'
-	// let data: Data[] | undefined = $state([]);
-	let data: any;
-
-	// function loadCSV(result: Data[]): void {
-	// 	data = result;
-	// }
+	let data: Data[] | undefined;
+	let isLoading = true;
 
 	onMount(async () => {
 		data = await csv('/src/lib/data/missed.csv').then((d) => {
 			return d.map((row) => ({
 				location: row.location,
 				type: row.type,
-				value: +row.value
+				value: parseFloat(parseFloat(row.value).toFixed(1))
 			}));
 		});
+
+		isLoading = false;
 	});
-	$: console.log(data);
-	// async function fetchCSV(url: string): Promise<Data[] | undefined> {
-	// 	try {
-	// 		const response = await fetch(url);
-	// 		const data = await response.text();
-	// 		const parsedData = data
-	// 			.split('\n')
-	// 			.slice(1)
-	// 			.map((row) => {
-	// 				const [location, type, value] = row.split(',');
-	// 				return { location, type, value: +value };
-	// 			});
-	// 		return parsedData;
-	// 	} catch (error) {
-	// 		console.error('Error fetching:', error);
-	// 	}
-	// }
-
-	// onMount(async () => {
-	// 	data = await fetchCSV(
-	// 		'https://raw.githubusercontent.com/ccalobeto/missed-in-ec-svelte/refs/heads/main/src/lib/data/missed.csv'
-	// 	);
-	// });
-
-	// let missed: Data[] = data.missed.map((d) => ({ ...d, value: +d.value }));
-
-	// $inspect(data); //.with(console.trace);
-
-	// console.log('missed: ', missed);
 </script>
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<!-- <Donut {data} {colors} {categories} /> -->
-
-{#await data}
+{#if isLoading}
 	<p>Loading...</p>
-{:then data}
+{:else if data}
 	<Donut {data} {colors} {categories} />
-{:catch error}
-	<p style="color: red">{error.message}</p>
-{/await}
+{:else}
+	<p style="color: red">Error loading data</p>
+{/if}
