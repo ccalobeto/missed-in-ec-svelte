@@ -9,7 +9,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"python:dependencies": "pip install --upgrade pip && pip install -r requirements.txt",
+		"data:generate": "python ./src/lib/assets/scripts/generate-data.py"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
