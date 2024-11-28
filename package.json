@@ -11,7 +11,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"python:dependencies": "pip install --upgrade pip && pip install -r requirements.txt",
-		"data:generate": "python ./src/lib/assets/scripts/generate-data.py"
+		"data:generate": "python ./src/lib/assets/scripts/generate-data.py",
+		"data:summary": "python ./src/lib/assets/scripts/summarize-data.py"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
