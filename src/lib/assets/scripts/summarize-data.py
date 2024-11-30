@@ -38,18 +38,12 @@ agg_by_sex = all_data.groupby('sexo').size().reset_index(name='count')
 agg_by_sex['percentage'] = 100 * (agg_by_sex['count'] / agg_by_sex['count'].sum())
 
 # convert multidataframes to json
-# agg_by_sex.to_json('./static/data/output/agg_by_sex.json', orient='records')
-
-map_summaries = {'age_range': agg_by_age_range, 'disappearance_year': agg_by_year, 
-          'tipology': agg_by_tipology, 'category': agg_by_category, 
-          'sex': agg_by_sex}
-
-# all_df = {}
-# for k,v in map_summaries.items():
-#   column = v.columns.to_list()[0]
-#   v[column] = v[column].apply(lambda x: unidecode.unidecode(x))
-#   all_df[k] = v.to_json(orient='records')
- 
+map_summaries = {'age_range': agg_by_age_range, 
+                 'disappearance_year': agg_by_year, 
+                 'tipology': agg_by_tipology, 
+                 'category': agg_by_category, 
+                 'sex': agg_by_sex
+                 }
 summaries = []
 for k,v in map_summaries.items():
   row_summary = {}
@@ -57,23 +51,13 @@ for k,v in map_summaries.items():
   # fixes accents
   v[column] = v[column].apply(lambda x: unidecode.unidecode(x)) 
   row_summary['name'] = k
-  row_summary['data'] = v.to_json(orient='records')
+  # this is the key. to_json method return str so you have to reconvert to a list with json.loads. finally when you dump it doesn't display with "\"
+  row_summary['data'] = json.loads(v.to_json(orient='records'))
   summaries.append(row_summary)
 
-print('type(summaries): ', summaries)
-print('summaries: ', summaries)
-# print(type(summaries))
-
-# with open(OUTPUT, 'w') as f:
-#   json.dump(summaries, f)
-
-
-json_string = json.dumps(summaries)
-# json_string = json.loads(summaries)
-print('type(json_string): ',type(json_string))
-print('json_string: ', json_string)
-
 with open(OUTPUT, 'w') as f:
-  print(json.dumps(summaries, indent=2), file=f)
+  json.dump(summaries, f)
 
-# agg_by_tipology.to_json('./static/data/output/agg_by_tipology.json', orient='records')
+print('JSON file created.')
+# print('type(summaries): ', type(summaries))
+# print('summaries: ', summaries)
