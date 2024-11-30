@@ -4,7 +4,7 @@ import unidecode
 import json
 
 # output json file
-OUTPUT = "./static/data/output/data_summaries.json"
+OUTPUT = "./src/lib/data/data_summaries.json"
  
 # The path is different in python in comparison with JS: it is the project path
 FILE = "./static/data/output/long_data.csv"
@@ -21,21 +21,26 @@ df3 = pd.read_csv(FILE3)
 all_data = pd.merge(df, df3, on='motivo_desaparicion_obs', how='left')
 
 # aggregations
-agg_by_age_range = all_data.groupby('rango_edad').size().reset_index(name='count')
+agg_by_age_range = all_data.groupby(['country', 'rango_edad']).size().reset_index(name='count')
 agg_by_age_range['percentage'] = 100 * (agg_by_age_range['count'] / agg_by_age_range['count'].sum())
+agg_by_age_range.rename(columns={'rango_edad': 'cardinality'}, inplace=True)
 
-agg_by_year = all_data.groupby('disappearance_year').size().reset_index(name='count')
+agg_by_year = all_data.groupby(['country', 'disappearance_year']).size().reset_index(name='count')
 agg_by_year['percentage'] = 100 * (agg_by_year['count'] / agg_by_year['count'].sum())
 agg_by_year['disappearance_year'] = agg_by_year['disappearance_year'].astype(str)
+agg_by_year.rename(columns={'disappearance_year': 'cardinality'}, inplace=True)
 
-agg_by_tipology = all_data.groupby('tipology').size().reset_index(name='count')
+agg_by_tipology = all_data.groupby(['country', 'tipology']).size().reset_index(name='count')
 agg_by_tipology['percentage'] = 100 * (agg_by_tipology['count'] / agg_by_tipology['count'].sum())
+agg_by_tipology.rename(columns={'tipology': 'cardinality'}, inplace=True)
 
-agg_by_category = all_data.groupby('category').size().reset_index(name='count')
+agg_by_category = all_data.groupby(['country', 'category']).size().reset_index(name='count')
 agg_by_category['percentage'] = 100 * (agg_by_category['count'] / agg_by_category['count'].sum())
+agg_by_category.rename(columns={'category': 'cardinality'}, inplace=True)
 
-agg_by_sex = all_data.groupby('sexo').size().reset_index(name='count')
+agg_by_sex = all_data.groupby(['country', 'sexo']).size().reset_index(name='count')
 agg_by_sex['percentage'] = 100 * (agg_by_sex['count'] / agg_by_sex['count'].sum())
+agg_by_sex.rename(columns={'sexo': 'cardinality'}, inplace=True)
 
 # convert multidataframes to json
 map_summaries = {'age_range': agg_by_age_range, 
@@ -47,10 +52,10 @@ map_summaries = {'age_range': agg_by_age_range,
 summaries = []
 for k,v in map_summaries.items():
   row_summary = {}
-  column = v.columns.to_list()[0]
+  column = v.columns.to_list()[1]
   # fixes accents
-  v[column] = v[column].apply(lambda x: unidecode.unidecode(x)) 
-  row_summary['name'] = k
+  v[column] = v[column].apply(lambda x: unidecode.unidecode(x))
+  row_summary['kpi'] = k
   # this is the key. to_json method return str so you have to reconvert to a list with json.loads. finally when you dump it doesn't display with "\"
   row_summary['data'] = json.loads(v.to_json(orient='records'))
   summaries.append(row_summary)
