@@ -64,6 +64,8 @@ df2['disappearance_year'] = df2['fecha_desaparicion'].dt.year
 df2['disappearance_month'] = df2['fecha_desaparicion'].dt.month
 df2['disappearance_day'] = df2['fecha_desaparicion'].dt.day
 df2['days_gone'] = (df2['fecha_localizacion'] - df2['fecha_desaparicion']).dt.days
+# add country ISO 3166-1 A-3 code
+df2['country'] = 'ECU'
 
 # dataframe statistics
 # print('shape: ', df2.shape)
