@@ -1,12 +1,10 @@
 <script lang="ts">
 	import Donut from '$lib/components/Donut.svelte';
-	import { csv } from 'd3-fetch';
 	import dataset from '$lib/data/data_summaries.json';
 
 	import type { Data } from '$lib/types';
 	import { onMount } from 'svelte';
 
-	let data_: Data[] | undefined;
 	let isLoading = true;
 
 	let data: Data[] = dataset[4].data.map((d) => {
@@ -23,14 +21,6 @@
 	};
 
 	onMount(async () => {
-		data_ = await csv('/data/missed.csv').then((d) => {
-			return d.map((row) => ({
-				location: row.location,
-				cardinality: row.type,
-				value: parseFloat(parseFloat(row.value).toFixed(1))
-			}));
-		});
-
 		isLoading = false;
 	});
 </script>
