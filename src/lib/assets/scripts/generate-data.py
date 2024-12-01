@@ -1,6 +1,7 @@
 # This script generates a csv cleaned file with accumulated data.
 import pandas as pd
 import numpy as np
+import unidecode
 
 # The path is different in python in comparison with JS: it is the project path
 FILE = "./static/data/input/mdi_personas_desaparecidas_2017-2023.csv"
@@ -66,6 +67,11 @@ df2['disappearance_day'] = df2['fecha_desaparicion'].dt.day
 df2['days_gone'] = (df2['fecha_localizacion'] - df2['fecha_desaparicion']).dt.days
 # add country ISO 3166-1 A-3 code
 df2['country'] = 'ECU'
+
+# remove accents
+cols_accents_to_remove = ['motivo_desaparicion', 'motivo_desaparicion_obs', 'rango_edad']
+for column in cols_accents_to_remove:
+  df2[column] = df2[column].apply(lambda x: unidecode.unidecode(x) if x is not np.nan else x)
 
 # dataframe statistics
 # print('shape: ', df2.shape)
