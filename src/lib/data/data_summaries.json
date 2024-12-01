@@ -1,0 +1,195 @@
+[
+  {
+    "kpi": "age_range",
+    "data": [
+      {
+        "country": "ECU",
+        "cardinality": "ADOLESCENTES",
+        "count": 29873,
+        "percentage": 48.6245849339
+      },
+      {
+        "country": "ECU",
+        "cardinality": "ADULTOS",
+        "count": 4567,
+        "percentage": 7.4337521974
+      },
+      {
+        "country": "ECU",
+        "cardinality": "ADULTOS JOVENES",
+        "count": 6980,
+        "percentage": 11.3614167589
+      },
+      {
+        "country": "ECU",
+        "cardinality": "ADULTOS MAYORES",
+        "count": 2082,
+        "percentage": 3.388892506
+      },
+      {
+        "country": "ECU",
+        "cardinality": "JOVENES ADULTOS",
+        "count": 10169,
+        "percentage": 16.552184387
+      },
+      {
+        "country": "ECU",
+        "cardinality": "NINOS",
+        "count": 5444,
+        "percentage": 8.8612539879
+      },
+      {
+        "country": "ECU",
+        "cardinality": "TERCERA EDAD",
+        "count": 2321,
+        "percentage": 3.7779152289
+      }
+    ]
+  },
+  {
+    "kpi": "disappearance_year",
+    "data": [
+      {
+        "country": "ECU",
+        "cardinality": "2017",
+        "count": 10478,
+        "percentage": 17.0551468195
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2018",
+        "count": 10271,
+        "percentage": 16.718210821
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2019",
+        "count": 9979,
+        "percentage": 16.2429194609
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2020",
+        "count": 6760,
+        "percentage": 11.0033205287
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2021",
+        "count": 7957,
+        "percentage": 12.9516895631
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2022",
+        "count": 7720,
+        "percentage": 12.5659222606
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2023",
+        "count": 7759,
+        "percentage": 12.6294029559
+      },
+      {
+        "country": "ECU",
+        "cardinality": "2024",
+        "count": 512,
+        "percentage": 0.8333875903
+      }
+    ]
+  },
+  {
+    "kpi": "tipology",
+    "data": [
+      {
+        "country": "ECU",
+        "cardinality": "FORZOSA",
+        "count": 2565,
+        "percentage": 4.5002368546
+      },
+      {
+        "country": "ECU",
+        "cardinality": "INVOLUNTARIA",
+        "count": 3399,
+        "percentage": 5.9634717617
+      },
+      {
+        "country": "ECU",
+        "cardinality": "VOLUNTARIA",
+        "count": 51033,
+        "percentage": 89.5362913838
+      }
+    ]
+  },
+  {
+    "kpi": "category",
+    "data": [
+      {
+        "country": "ECU",
+        "cardinality": "ACCIDENTES",
+        "count": 1039,
+        "percentage": 1.8229029598
+      },
+      {
+        "country": "ECU",
+        "cardinality": "AMBITO DELICTIVO",
+        "count": 1172,
+        "percentage": 2.0562485745
+      },
+      {
+        "country": "ECU",
+        "cardinality": "AUSENCIA INTENCIONADA",
+        "count": 12484,
+        "percentage": 21.9029071706
+      },
+      {
+        "country": "ECU",
+        "cardinality": "DETERIORO COGNITIVO",
+        "count": 2360,
+        "percentage": 4.1405688019
+      },
+      {
+        "country": "ECU",
+        "cardinality": "PROBLEMAS FAMILIARES",
+        "count": 35178,
+        "percentage": 61.7190378441
+      },
+      {
+        "country": "ECU",
+        "cardinality": "PROBLEMAS PSICOLOGICOS",
+        "count": 2746,
+        "percentage": 4.8177974279
+      },
+      {
+        "country": "ECU",
+        "cardinality": "PROBLEMAS SOCIALES",
+        "count": 625,
+        "percentage": 1.0965489412
+      },
+      {
+        "country": "ECU",
+        "cardinality": "SUSTRACCION DE PERSONAS",
+        "count": 1393,
+        "percentage": 2.4439882801
+      }
+    ]
+  },
+  {
+    "kpi": "sex",
+    "data": [
+      {
+        "country": "ECU",
+        "cardinality": "HOMBRE",
+        "count": 22094,
+        "percentage": 35.9626277752
+      },
+      {
+        "country": "ECU",
+        "cardinality": "MUJER",
+        "count": 39342,
+        "percentage": 64.0373722248
+      }
+    ]
+  }
+]
