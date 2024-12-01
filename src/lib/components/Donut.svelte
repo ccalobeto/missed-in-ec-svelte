@@ -4,36 +4,36 @@
 	import { ascending, sort } from 'd3-array';
 	import { fade } from 'svelte/transition';
 	import { transformData } from '$lib/assets/utils/transforming';
+	import { schemePastel1 } from 'd3-scale-chromatic';
 
 	import type { Data, DonutData } from '$lib/types';
 
 	interface Props {
 		data: Data[] | undefined;
-		colors: string[];
-		categories: string[];
+		donutOptions: any;
 	}
 
-	let { data, colors, categories }: Props = $props();
+	let { data, donutOptions }: Props = $props();
 
 	let el: SVGGElement | null = $state(null);
 	let width = $state(0);
 	const height = 340;
 
-	let countryData: Data[] = $state([]);
+	let dataToDisplay: Data[] = $state([]);
 
-	let location = $state('USA');
+	let location = donutOptions.donutCenter;
+	let cardinalities: string[] | undefined = data?.map((d) => d.cardinality);
 
 	// sort the data so we will place the biggest slices first starting from 12 o'clock position.
 	if (data) {
-		countryData = sort(
+		dataToDisplay = sort(
 			data.filter((d) => d.location === location),
 			(a, b) => a.value - b.value
 		);
 	}
-
-	const colorScale: (type: string) => string = scaleOrdinal()
-		.domain(categories.sort(ascending))
-		.range(colors) as unknown as (type: string) => string;
+	const colorScale: (cardinality: string) => string = scaleOrdinal()
+		.domain((cardinalities || []).sort(ascending))
+		.range(schemePastel1) as unknown as (cardinality: string) => string;
 
 	const pieAccesor = (row: any) => {
 		if (typeof row === 'object' && 'value' in row) {
@@ -47,7 +47,7 @@
 
 	// lets make pieData reactive so if we change the data the function will also be updated
 	let pieData = $derived.by(() => {
-		return pieGenerator(transformData(countryData));
+		return pieGenerator(transformData(dataToDisplay));
 	});
 
 	const arcGenerator = arc()
@@ -62,7 +62,7 @@
 		.cornerRadius(4);
 
 	const labelArcs = arc()
-		.innerRadius((0.96 * height) / 2)
+		.innerRadius((0.7 * height) / 2)
 		.outerRadius((0.96 * height) / 2);
 </script>
 
@@ -75,8 +75,8 @@
 					class="donut-container"
 					transform="translate({width / 2 - 5} {height / 2 + 20})"
 				>
-					{#each pieData as d, i (d.data.type)}
-						{#if typeof d.data === 'object' && 'type' in d.data}
+					{#each pieData as d, i (d.data.cardinality)}
+						{#if typeof d.data === 'object' && 'cardinality' in d.data}
 							{#each [d.data] as item}
 								<path
 									class={i.toString()}
@@ -88,7 +88,7 @@
 										innerRadius: (0.6 * height) / 2.4,
 										outerRadius: (0.85 * height) / 2.2
 									})}
-									fill={colorScale(item.type as string)}
+									fill={colorScale(item.cardinality as string)}
 								/>
 								<text
 									in:fade={{ delay: 100, duration: 1000 }}
@@ -105,7 +105,7 @@
 											outerRadius: (0.96 * height) / 2
 										})
 										.join(' ')})"
-									>{item.type}
+									>{item.cardinality}
 								</text>
 								<text
 									x="0"
@@ -122,7 +122,7 @@
 											outerRadius: (0.96 * height) / 2
 										})
 										.join(' ')})"
-									>{item.value + ' kg'}
+									>{item.value + ' ' + donutOptions.units}
 								</text>
 							{/each}
 						{/if}
