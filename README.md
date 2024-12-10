@@ -33,3 +33,18 @@ npm install svelte-ux
 ```
 ### setup tailwind
 use this [tutorial](https://tailwindcss.com/docs/guides/sveltekit) to install tailwind with sveltekit
+
+### setup layerchart
+follow [this tutorial](https://www.layerchart.com/getting-started) and [this totorial](https://github.com/huntabyte/shadcn-svelte/issues/1175#issuecomment-2254800243). 
+finally add *surface* this code to `theme.extend.colors`
+```js
+				surface: {
+					content: "hsl(var(--card-foreground) / <alpha-value>)",
+					100: "hsl(var(--background) / <alpha-value>)",
+					200: "hsl(var(---muted) / <alpha-value>)",
+					// not sure what color maps here (should be darker than 200).  Could add a new color to `app.css`
+					300: "hsl(var(--background) / <alpha-value>)"
+				},
+```
+
+### add component
