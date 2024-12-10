@@ -26,37 +26,10 @@ To generate a json file with all summaries for your svelte project
 npm run data:summary
 ```
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
+## setup layerchart
+### setup svelte ux
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+npm install svelte-ux
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+### setup tailwind
+use this [tutorial](https://tailwindcss.com/docs/guides/sveltekit) to install tailwind with sveltekit
